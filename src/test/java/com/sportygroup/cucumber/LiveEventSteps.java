@@ -27,7 +27,7 @@ public class LiveEventSteps {
     @LocalServerPort
     int port;
 
-    InMemoryTestPublisher
+
     MessagePublisher publisher;
 
     @Before
