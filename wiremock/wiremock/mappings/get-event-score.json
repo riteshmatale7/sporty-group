@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/api/events/.*"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "eventId": "{{request.path.[2]}}",
+      "currentScore": "0:0"
+    },
+    "transformers": ["response-template"]
+  }
+}

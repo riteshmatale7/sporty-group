@@ -1,0 +1,33 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: rest-calls-service
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+      retries: 0
+
+# Assignment-specific config
+app:
+  # External REST API base URL (WireMock in the assignment)
+  external-api-base-url: http://localhost:8091
+  # Endpoint path template (eventId is expanded as a URI variable)
+  external-api-path-template: /api/events/{eventId}
+  # External API call timeout in milliseconds
+  external-api-timeout-ms: 2000
+  # Polling interval for scheduled jobs
+  polling-interval-ms: 10000
+  # Kafka topic (used when profile 'kafka' is enabled)
+  kafka-topic: live-events
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

@@ -1,0 +1,15 @@
+spring:
+  main:
+    banner-mode: "off"
+
+logging:
+  level:
+    root: INFO
+    com.example.restcalls: DEBUG
+
+app:
+  polling-interval-ms: 200
+  external-api-base-url: "http://localhost:0"   # overridden dynamically in tests
+  external-api-path-template: "/api/events/{eventId}"
+  external-api-timeout-ms: 2000
+  kafka-topic: "test-topic"
