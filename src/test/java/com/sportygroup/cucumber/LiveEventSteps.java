@@ -9,6 +9,7 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
 import java.time.Duration;
@@ -27,7 +28,7 @@ public class LiveEventSteps {
     @LocalServerPort
     int port;
 
-
+    @Autowired
     MessagePublisher publisher;
 
     @Before

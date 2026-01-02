@@ -1,13 +1,11 @@
 package com.sportygroup.cucumber;
 
-import com.sportygroup.config.InMemoryTestPublisher;
-import com.sportygroup.publish.MessagePublisher;
 import com.github.tomakehurst.wiremock.WireMockServer;
+import com.sportygroup.config.TestPublisherConfig;
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 
@@ -19,6 +17,7 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
 @CucumberContextConfiguration
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
+@Import(TestPublisherConfig.class)
 public class CucumberSpringConfiguration {
 
     // One WireMock per test JVM.
@@ -35,12 +34,5 @@ public class CucumberSpringConfiguration {
         registry.add("app.external-api-base-url", () -> "http://localhost:" + WIREMOCK.port());
     }
 
-    /**
-     * Override the real publisher with an in-memory one so we can assert messages.
-     */
-    @Bean
-    @Primary
-    public MessagePublisher testPublisher() {
-        return new InMemoryTestPublisher();
-    }
+
 }

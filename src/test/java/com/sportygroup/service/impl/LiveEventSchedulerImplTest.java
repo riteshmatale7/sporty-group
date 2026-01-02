@@ -47,7 +47,7 @@ class LiveEventSchedulerImplTest {
           return future;
         });
 
-    RetryTemplate retryTemplate = RetryTemplate.builder().maxAttempts(1).fixedBackoff(0).build();
+    RetryTemplate retryTemplate = RetryTemplate.builder().maxAttempts(1).fixedBackoff(1).build();
 
     LiveEventSchedulerImpl impl = new LiveEventSchedulerImpl(scheduler, external, publisher, retryTemplate);
 
@@ -72,15 +72,16 @@ class LiveEventSchedulerImplTest {
     verify(publisher, times(1)).publish(any());
   }
 
-/*  @Test
+  @Test
   void cancelIfScheduledShouldCancelFuture() {
     TaskScheduler scheduler = mock(TaskScheduler.class);
     ExternalScoreClient external = mock(ExternalScoreClient.class);
     MessagePublisher publisher = mock(MessagePublisher.class);
-    RetryTemplate retryTemplate = RetryTemplate.builder().maxAttempts(1).fixedBackoff(0).build();
+    RetryTemplate retryTemplate = RetryTemplate.builder().maxAttempts(1).fixedBackoff(1).build();
 
     ScheduledFuture<?> future = mock(ScheduledFuture.class);
-    when(scheduler.scheduleAtFixedRate(any(Runnable.class), anyLong())).thenReturn(future);
+    when(scheduler.scheduleAtFixedRate(any(Runnable.class), anyLong()))
+        .thenAnswer(inv -> future);
 
     LiveEventSchedulerImpl impl = new LiveEventSchedulerImpl(scheduler, external, publisher, retryTemplate);
 
@@ -91,5 +92,5 @@ class LiveEventSchedulerImplTest {
     impl.cancelIfScheduled("e1");
 
     verify(future).cancel(false);
-  }*/
+  }
 }
